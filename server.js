@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 require('dotenv').config();
+//const {  PORT, server}  = require('./services/socket.js')
 //Web Socket Configuration
-const { PORT, server  }  = require('./services/socket.js')
-app.use(cors({ origin: true, credentials: true }));
+//app.use(cors({ origin: true, credentials: true }));
 app.use( bodyParser.json({type: "json"}) );
 
 
@@ -21,3 +21,6 @@ mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm
 
 const mainRouter = require('./Router/main.js')
 app.use(mainRouter);
+
+module.exports = { app }
+

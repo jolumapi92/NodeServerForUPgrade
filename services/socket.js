@@ -1,6 +1,6 @@
 const express = require('express');
+const { app } = require('../server.js')
 const jwt = require('jsonwebtoken');
-const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
@@ -35,5 +35,3 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
     console.log('listening on port: ' + PORT);
 });
-
-module.exports = { PORT, server }
