@@ -99,7 +99,7 @@ module.exports.login = async (req, res) => {
 
 module.exports.asyncMessages = async (req, res) => {
         
-    if(!req.headers) {
+    if(!req.headers.auth) {
         res.json({notification: "Please authenticate yourself"})
     } 
     let auth = req.headers;
