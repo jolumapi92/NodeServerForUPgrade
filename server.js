@@ -1,10 +1,14 @@
 const express = require('express');
+const app = express();
 const mongoDB = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+require('./services/socket.js')
 
-const app = express();
+//Web Socket Configuration
+
+
 const PORT = process.env.PORT || 8000;
 require('dotenv').config();
 
@@ -30,11 +34,10 @@ mongoDB.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm.
 const mainRouter = require('./Router/main.js')
 app.use(mainRouter);
 
-const server = app.listen( PORT, function() {
+app.listen( PORT, function() {
     console.log(" Your app is up and running on port:" + PORT);
 })
 
-console.log(server)
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('frontend/build'))

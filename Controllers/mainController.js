@@ -62,7 +62,7 @@ module.exports.newMessage = async (req, res) => {
 
 module.exports.experiment = (req, res) => {
     console.log(req.headers);
-    res.json({success: "App successfully running"})
+    res.json({success: "App successfully running....."})
 }
 
 module.exports.getMessages = async(req, res) => {
