@@ -4,7 +4,6 @@ const mongoDB = require('mongodb').MongoClient;
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('./services/socket.js')
 
 //Web Socket Configuration
 
@@ -29,11 +28,6 @@ mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm
 const mainRouter = require('./Router/main.js')
 app.use(mainRouter);
 
-app.listen( PORT, function() {
+app.listen(PORT, function() {
     console.log(" Your app is up and running on port:" + PORT);
 })
-
-
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('frontend/build'))
-}
