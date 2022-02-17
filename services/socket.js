@@ -20,8 +20,8 @@ module.exports.savingMessages = async (payload) => {
                     let instance = new Message({ _id: new mongoose.Types.ObjectId(), message: message.message, author: verified.user })
                     newCollection.push(instance);
                 }
-                let updatedUser = await User.findOneAndUpdate({ _id: verified.user }, { messages: newCollection}, { new: true } );
-                console.log(updatedUser)
+                await User.findOneAndUpdate({ _id: verified.user }, { messages: newCollection}, { new: true } );
+                console.log("The user has been updated")
             } else {
                 console.log("user up to date")
             }
