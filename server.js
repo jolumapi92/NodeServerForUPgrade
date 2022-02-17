@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const http = require('http');
-
 const { Server } = require("socket.io");
+//Web Socket Functions for Emit
+const socketActions = require('./services/socket.js')
 
 const PORT = process.env.PORT || 8000;
 //const {  PORT, server}  = require('./services/socket.js')
@@ -48,6 +49,8 @@ io.on("connection", (socket) => {
             }
         }
     })
+    socket.emit('messages');
+    socket.on('bulk', socketActions.savingMessages)
 });
 
 server.listen(PORT, () => {
