@@ -98,6 +98,10 @@ module.exports.login = async (req, res) => {
 }
 
 module.exports.asyncMessages = async (req, res) => {
+        
+    if(!req.headers) {
+        res.json({notification: "Please authenticate yourself"})
+    } 
     let auth = req.headers;
     const { messages } = req.body
     console.log(messages)
