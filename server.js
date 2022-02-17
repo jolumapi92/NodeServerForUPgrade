@@ -12,7 +12,7 @@ const { Server } = require("socket.io");
 const PORT = process.env.PORT || 8000;
 //const {  PORT, server}  = require('./services/socket.js')
 //Web Socket Configuration
-//app.use(cors({ origin: true, credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use( bodyParser.json({type: "json"}) );
 
 mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm.mongodb.net/UPgrade?retryWrites=true&w=majority', function(error) {
