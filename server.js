@@ -16,20 +16,15 @@ app.use(cors({ origin: true, credentials: true }));
 app.use( bodyParser.json({type: "json"}) );
 
 
-mongoDB.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm.mongodb.net/UPgrade?retryWrites=true&w=majority', (err, db) => {
-    if(err) {
-        console.log(err);
+
+mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm.mongodb.net/UPgrade?retryWrites=true&w=majority', function(error) {
+    if(error) {
+        console.log(error)
     } else {
-        console.log("Connected to the data base");
-        mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm.mongodb.net/UPgrade?retryWrites=true&w=majority', function(error) {
-            if(error) {
-                console.log(error)
-            } else {
-                console.log("Success")
-            }
-        })
+        console.log("Success")
     }
 })
+
 
 const mainRouter = require('./Router/main.js')
 app.use(mainRouter);
