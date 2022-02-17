@@ -5,12 +5,17 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 
+
+const WebPort = process.env.PORT || 3002;
+
 const io = new Server(server, { 
     cors: {
         origin: '*',
         credentials: true
     }
 });
+
+
 
 io.on("connection", (socket) => {
     socket.emit("jwt", {notification:"Identify yourself"});
@@ -27,6 +32,6 @@ io.on("connection", (socket) => {
     })
 });
   
-server.listen(3002, () => {
-    console.log('listening on *:3002');
+server.listen(WebPort, () => {
+    console.log('listening on ' + WebPort);
 });
