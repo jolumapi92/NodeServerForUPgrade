@@ -6,8 +6,6 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 
 
-const PORT = process.env.PORT || 8000;
-
 const io = new Server(server, { 
     cors: {
         origin: '*',
@@ -32,6 +30,3 @@ io.on("connection", (socket) => {
     })
 });
   
-server.listen(PORT, () => {
-    console.log('listening on port: ' + PORT);
-});
