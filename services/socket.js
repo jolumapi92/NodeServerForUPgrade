@@ -1,6 +1,5 @@
 const express = require('express');
 const { app } = require('../server.js')
-const jwt = require('jsonwebtoken');
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
