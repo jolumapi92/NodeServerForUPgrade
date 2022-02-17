@@ -25,6 +25,29 @@ mongoose.connect('mongodb+srv://jolumapi92:'+ process.env.TOP + '@cluster0.ukcjm
 const mainRouter = require('./Router/main.js')
 app.use(mainRouter);
 const server = http.createServer(app);
+const io = new Server(server, { 
+    cors: {
+        origin: '*',
+        credentials: true
+    }
+});
+
+
+
+io.on("connection", (socket) => {
+    socket.emit("jwt", {notification:"Identify yourself"});
+    socket.on('auth', (e)=> {
+        if(e){
+            const verified = jwt.verify(e, process.env.SECRET);
+            if(!verified){
+                socket.disconnect()
+                console.log("Disconnected")
+            } else {
+                console.log("User Authenticated", verified)
+            }
+        }
+    })
+});
 
 server.listen(PORT, () => {
     console.log('listening on port: ' + PORT);
