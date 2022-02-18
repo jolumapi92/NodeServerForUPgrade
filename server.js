@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const http = require('http');
 const { Server } = require("socket.io");
+const {User} = require('./Models/user.js')
 //Web Socket Functions for Emit
 const socketActions = require('./services/socket.js')
 
@@ -38,7 +39,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
     socket.emit("jwt", {notification:"Identify yourself"});
-    socket.on('auth', (e)=> {
+    socket.on('auth', async (e)=> {
         if(e !== null) {
             try {
                 const verified = jwt.verify(e, process.env.SECRET);
@@ -47,6 +48,8 @@ io.on("connection", (socket) => {
                     socket.disconnect()
                     console.log("Disconnected")
                 } else {
+                    let user = await User.findById(verified.user);
+                    socket.emit("username", user.name);
                     socket.emit('messages');
                     console.log("User Authenticated", verified)
                 }
