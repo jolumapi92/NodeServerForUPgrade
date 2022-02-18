@@ -39,17 +39,24 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
     socket.emit("jwt", {notification:"Identify yourself"});
     socket.on('auth', (e)=> {
-        if(e){
-            const verified = jwt.verify(e, process.env.SECRET);
-            if(!verified){
-                socket.disconnect()
-                console.log("Disconnected")
-            } else {
-                console.log("User Authenticated", verified)
+        if(e !== null) {
+            try {
+                const verified = jwt.verify(e, process.env.SECRET);
+                if(!verified){
+                    socket.emit("thief", "You have been terminated")
+                    socket.disconnect()
+                    console.log("Disconnected")
+                } else {
+                    socket.emit('messages');
+                    console.log("User Authenticated", verified)
+                }
+            } catch (error) {
+                console.log("You have been terminated")
+                socket.emit("thief", "You have been terminated")
+                socket.disconnect();
             }
         }
     })
-    socket.emit('messages');
     socket.on('bulk', socketActions.savingMessages)
 });
 
