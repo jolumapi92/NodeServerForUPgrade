@@ -51,6 +51,7 @@ io.on("connection", (socket) => {
                     let user = await User.findById(verified.user);
                     socket.emit("username", user.name);
                     socket.emit('messages');
+                    socket.emit('fetch-messages', { messages: user.messages } )
                     console.log("User Authenticated", verified)
                 }
             } catch (error) {
