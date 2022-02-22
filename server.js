@@ -58,6 +58,8 @@ io.on("connection", (socket) => {
                 socket.emit("thief", "You have been terminated")
                 socket.disconnect();
             }
+        } else {
+            socket.emit("invalid", { notification: "Invalid token" })
         }
     })
     socket.on('bulk', socketActions.savingMessages)
