@@ -7,6 +7,7 @@ const UserSchema = new schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: String,
     password: String,
+    profileURL: String,
     teachers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
