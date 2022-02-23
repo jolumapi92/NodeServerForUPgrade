@@ -93,9 +93,8 @@ io.on("connection", (socket) => {
                         resource_type: "image"
                     }).then( res => {
                         console.log("success", JSON.stringify(res, null, 2))
-                        const responseObject = JSON.stringify(res)
-                        const url = responseObject["secure_url"]
-                        User.findOneAndUpdate({ _id: verified.user }, { profileURL: url}, { new: true } ).then( response => { console.log(response) });
+                        console.log(res.secure_url)
+                        User.findOneAndUpdate({ _id: verified.user }, { profileURL: res.secure_url}, { new: true } ).then( response => { console.log(response) });
                     }).catch(e => {
                         console.log(e, JSON.stringify(e, null, 2))
                     })
