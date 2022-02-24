@@ -74,6 +74,7 @@ io.on("connection", (socket) => {
     })
     socket.on('bulk', socketActions.savingMessages)
     socket.on("photo", async (payload) => {
+        console.log(payload, "Triggered the upload")
         const { body, fileName, token } = payload;
         const str = Buffer.from(body);
         //Writting the file from the buffer sent by the user
@@ -95,6 +96,7 @@ io.on("connection", (socket) => {
                     cloudinary.uploader.upload(__dirname + '/images/' + fileName, {
                         resource_type: "image"
                     }).then( res => {
+                        console.log(JSON.stringify(res))
                         console.log("Successfully saved the resource", res.secure_url);
                         socket.emit('url-for-profile-image', {url: res.secure_url, id: verified.user});
                         User.findOneAndUpdate({ _id: verified.user }, { profileURL: res.secure_url}, { new: true } ).then( response => { console.log(response) });
