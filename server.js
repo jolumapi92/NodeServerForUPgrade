@@ -59,6 +59,9 @@ io.on("connection", (socket) => {
                     socket.emit('messages');
                     socket.emit('fetch-messages', { messages: user.messages } )
                     console.log("User Authenticated", verified)
+                    if(user.profileURL) {
+                        socket.emit('url-for-profile-image', {url: user.profileURL, id:user._id});
+                    }
                 }
             } catch (error) {
                 console.log("You have been terminated")
@@ -92,8 +95,8 @@ io.on("connection", (socket) => {
                     cloudinary.uploader.upload(__dirname + '/images/' + fileName, {
                         resource_type: "image"
                     }).then( res => {
-                        console.log("success", JSON.stringify(res, null, 2))
-                        console.log(res.secure_url)
+                        console.log("Successfully saved the resource", res.secure_url);
+                        socket.emit('url-for-profile-image', {url: res.secure_url, id: verified.user});
                         User.findOneAndUpdate({ _id: verified.user }, { profileURL: res.secure_url}, { new: true } ).then( response => { console.log(response) });
                     }).catch(e => {
                         console.log(e, JSON.stringify(e, null, 2))
