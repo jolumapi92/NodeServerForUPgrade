@@ -32,8 +32,6 @@ module.exports.savingMessages = async (payload) => {
         } catch (error) {
             console.log("Not Auth 2");
         }
-        
-        
     }
 }
 
